@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Álibi Digital</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Bibliotecas adicionais -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    
+    /* Animações básicas */
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    
+    .slide-in-left {
+      animation: slideInLeft 1s ease-in-out;
+    }
+    
+    .slide-in-right {
+      animation: slideInRight 1s ease-in-out;
+    }
+    
+    .bounce-in {
+      animation: bounceIn 1s ease-in-out;
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite ease-in-out;
+    }
+    
+    .float {
+      animation: float 3s infinite ease-in-out;
+    }
+    
+    .scale-in {
+      animation: scaleIn 0.5s ease-in-out;
+    }
+    
+    .rotate-in {
+      animation: rotateIn 0.8s ease-in-out;
+    }
+    
+    /* Definição das animações */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.3); }
+      50% { opacity: 1; transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+    
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes rotateIn {
+      from { opacity: 0; transform: rotate(-90deg); }
+      to   { opacity: 1; transform: rotate(0); }
+    }
+    
+    /* Animação para botões com hover */
+    .animated-btn {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .animated-btn:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+    
+    .animated-btn:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: all 0.3s;
+      z-index: -1;
+    }
+    
+    .animated-btn:hover:before {
+      width: 100%;
+    }
+    
+    /* Animação para elementos quando entram na viewport */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Efeito de brilho para elementos */
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .shine::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(255, 255, 255, 0.3) 50%, 
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(30deg);
+      animation: shine 3s infinite linear;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+    
+    /* Efeito de gradiente animado */
+    .animated-gradient {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    /* Estilos para o holograma futurista em 3D */
+    .hologram-container {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: 0 auto;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+    
+    .hologram {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotate3d 15s linear infinite;
+    }
+    
+    .hologram::before {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 20px;
+      background: radial-gradient(ellipse at center, rgba(0, 233, 255, 0.7) 0%, rgba(0, 233, 255, 0) 70%);
+      border-radius: 50%;
+      animation: pulse-base 2s infinite;
+      z-index: -1;
+    }
+    
+    .hologram-3d-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      animation: float-3d 6s ease-in-out infinite;
+    }
+    
+    .hologram-base {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 10px;
+      background: radial-gradient(ellipse at center, rgba(0, 233, 255, 0.7) 0%, rgba(0, 233, 255, 0) 70%);
+      border-radius: 50%;
+      filter: blur(3px);
+    }
+    
+    .hologram-projection {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      transform-style: preserve-3d;
+    }
+    
+    .hologram-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('/assets/hologram.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.8;
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 0 8px rgba(0, 233, 255, 0.8));
+    }
+    
+    .layer-1 { transform: translateZ(10px); animation: pulse-layer 3s infinite ease-in-out; }
+    .layer-2 { transform: translateZ(0px); animation: pulse-layer 3s infinite ease-in-out reverse; animation-delay: 0.5s; }
+    .layer-3 { transform: translateZ(-10px); animation: pulse-layer 3s infinite ease-in-out; animation-delay: 1s; }
+    
+    .hologram-particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(0, 233, 255, 0.8);
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(0, 233, 255, 0.8);
+    }
+    
+    .hologram-rings {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      transform-style: preserve-3d;
+    }
+    
+    .ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(0, 233, 255, 0.4);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0, 233, 255, 0.4);
+    }
+    
+    .ring-1 { width: 100px; height: 100px; animation: rotate-ring 8s linear infinite; }
+    .ring-2 { width: 160px; height: 160px; animation: rotate-ring 12s linear infinite reverse; }
+    .ring-3 { width: 220px; height: 220px; animation: rotate-ring 16s linear infinite; }
+    
+    @keyframes rotate3d {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+    
+    @keyframes float-3d {
+      0%, 100% { transform: translateY(0) rotateX(0deg); }
+      25% { transform: translateY(-15px) rotateX(5deg); }
+      50% { transform: translateY(0) rotateX(0deg); }
+      75% { transform: translateY(15px) rotateX(-5deg); }
+    }
+    
+    @keyframes pulse-layer {
+      0%, 100% { opacity: 0.7; transform: scale(0.95) translateZ(0); }
+      50% { opacity: 0.9; transform: scale(1.05) translateZ(10px); }
+    }
+    
+    @keyframes rotate-ring {
+      0% { transform: translate(-50%, -50%) rotateZ(0deg); }
+      100% { transform: translate(-50%, -50%) rotateZ(360deg); }
+    }
+    
+    @keyframes pulse-base {
+      0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+      50% { opacity: 0.6; transform: translateX(-50%) scale(1.1); }
+    }
+    
+    /* Efeito digitação futurista */
+    .typing-effect {
+      display: inline-block;
+      overflow: hidden;
+      white-space: normal;
+      margin: 0;
+      letter-spacing: 0.05em;
+      border-right: 2px solid #00e9ff;
+      color: #00e9ff;
+      text-shadow: 0 0 10px rgba(0, 233, 255, 0.8);
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: #00e9ff; }
+    }
+    
+    /* Scanner para efeito futurista */
+    .scanner-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #00e9ff, transparent);
+      animation: scan 2s linear infinite;
+      opacity: 0.7;
+      z-index: 10;
+    }
+    
+    @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+    
+    /* Caixa futurista para o diagnóstico */
+    .futuristic-box {
+      background: rgba(5, 20, 40, 0.8);
+      border: 1px solid #00e9ff;
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 233, 255, 0.3);
+    }
+    
+    .futuristic-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #00e9ff, transparent);
+      animation: slide-right 2s linear infinite;
+    }
+    
+    @keyframes slide-right {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .hologram-text {
+      color: #00e9ff;
+      text-shadow: 0 0 5px rgba(0, 233, 255, 0.8);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      background: rgba(0, 10, 20, 0.7);
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 2px solid #00e9ff;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body class="bg-[#0b1120] text-white font-sans">
+
+  <!-- Cabeçalho -->
+  <header class="bg-[#0f172a] text-white shadow-md fixed top-0 left-0 w-full z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <!-- Logo -->
+        <span class="font-bold text-xl">Álibis Digital</span>
+      </div>
+      <!-- Menu Hamburguer para dispositivos móveis -->
+      <div class="md:hidden flex items-center">
+        <button id="hamburger-menu" class="text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+      <!-- Menu de navegação para telas maiores -->
+      <nav id="navbar" class="hidden md:flex space-x-6 text-sm">
+        <a href="#criar-alibi" class="hover:text-green-400 transition">Criar Álibi</a>
+        <a href="#scanner" class="hover:text-green-400 transition">Scanner com IA</a>
+        <a href="#avaliacao-emocional" class="hover:text-green-400 transition">Avaliação Emocional</a>
+        <a href="#suporte" class="hover:text-green-400 transition">Suporte</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Menu de navegação colapsado para mobile -->
+  <div id="mobile-menu" class="md:hidden bg-[#0f172a] w-full hidden py-6">
+    <nav class="flex flex-col items-center">
+      <a href="#criar-alibi" class="text-white py-3 text-lg">Criar Álibi</a>
+      <a href="#scanner" class="text-white py-3 text-lg">Scanner com IA</a>
+      <a href="#avaliacao-emocional" class="text-white py-3 text-lg">Avaliação Emocional</a>
+      <a href="#suporte" class="text-white py-3 text-lg">Suporte</a>
+    </nav>
+  </div>
+
+  <div class="h-20"></div>
+
+  <!-- Bloco 1 – Hero com Impacto Emocional -->
+  <section class="animated-gradient text-white text-center py-24 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-5xl font-extrabold mb-6 leading-tight bounce-in">Desculpas Impecáveis. Diagnóstico Emocional com IA.</h1>
+      <p class="text-lg text-gray-300 mb-8 fade-in">Receba álibis personalizados ou descubra como anda sua saúde emocional com tecnologia de ponta.</p>
+      <div class="flex flex-col md:flex-row justify-center gap-4">
+        <a href="#criar-alibi" class="animated-btn bg-green-600 hover:bg-green-500 text-white py-3 px-6 rounded-full transition font-semibold slide-in-left">Criar Álibi</a>
+        <a href="#avaliacao-emocional" class="animated-btn bg-purple-700 hover:bg-purple-600 text-white py-3 px-6 rounded-full transition font-semibold slide-in-right">Apoio Emocional</a>
+      </div>
+    </div>
+  </section>
+
+ <!-- BLOCO 2 – Consciência do Problema -->
+<section id="criar-alibi" class="bg-[#0f172a] py-16 px-6 text-white">
+  <div class="max-w-4xl mx-auto text-center animate-on-scroll">
+    <h2 class="text-3xl font-bold mb-4 shine">Está cansado de se explicar?</h2>
+    <p class="text-lg mb-8 text-gray-400">
+      Às vezes, um simples atraso ou ausência gera uma explicação que não condiz com a realidade. Ou pior, deixa você tenso, ansioso, e lidando com mais pressão do que deveria.
+    </p>
+    <div class="mb-12">
+      <p class="text-xl font-semibold text-gray-300 mb-4 pulse">Mas e se você pudesse simplesmente se cuidar?</p>
+      <p class="text-lg text-gray-400 mb-8">
+        Um álibi perfeitamente feito ou um diagnóstico emocional poderia aliviar o peso que você carrega. Não seria mais simples lidar com as situações do dia a dia sem se preocupar em dar explicações?
+      </p>
+    </div>
+    <div class="flex flex-col gap-4">
+      <a href="#scanner" class="animated-btn bg-green-600 text-white py-3 px-6 rounded-full font-semibold hover:bg-green-500 transition">
+        Verificar Meu Estresse com IA
+      </a>
+      <a href="#avaliacao-emocional" class="animated-btn bg-purple-700 text-white py-3 px-6 rounded-full font-semibold hover:bg-purple-600 transition">
+        Obter Apoio Emocional
+      </a>
+    </div>
+  </div>
+</section>
+<!-- BLOCO 3 – Diagnóstico de Bem-Estar Emocional -->
+<section id="avaliacao-emocional" class="bg-[#1a1d3b] py-16 px-6 text-white">
+  <div class="max-w-4xl mx-auto text-center animate-on-scroll">
+    <h2 class="text-3xl font-bold mb-4 float">Como Você Está Se Sentindo?</h2>
+    <p class="text-lg mb-8 text-gray-400 slide-in-left">
+      Às vezes, o estresse e as tensões diárias nos afetam de maneiras que nem sempre conseguimos perceber. Vamos ajudá-lo a avaliar seu bem-estar emocional.
+    </p>
+
+    <form onsubmit="event.preventDefault(); realizarAvaliacaoEmocional();" class="max-w-2xl mx-auto space-y-6 scale-in">
+      <!-- Pergunta 1 -->
+      <div class="fade-in" style="animation-delay: 0.2s">
+        <label class="block mb-2 text-sm text-gray-300">Você tem se sentido estressado(a) ultimamente?</label>
+        <select id="estresse" required class="w-full p-3 rounded bg-white text-black">
+          <option value="">Selecione...</option>
+          <option value="Sim">Sim</option>
+          <option value="Não">Não</option>
+        </select>
+      </div>
+
+      <!-- Pergunta 2 -->
+      <div class="fade-in" style="animation-delay: 0.4s">
+        <label class="block mb-2 text-sm text-gray-300">Você tem tido dificuldade em relaxar?</label>
+        <select id="dificuldade-relaxar" required class="w-full p-3 rounded bg-white text-black">
+          <option value="">Selecione...</option>
+          <option value="Sim">Sim</option>
+          <option value="Não">Não</option>
+        </select>
+      </div>
+
+      <!-- Pergunta 3 -->
+      <div class="fade-in" style="animation-delay: 0.6s">
+        <label class="block mb-2 text-sm text-gray-300">Como você se sente ao acordar de manhã?</label>
+        <select id="sentimento-manha" required class="w-full p-3 rounded bg-white text-black">
+          <option value="">Selecione...</option>
+          <option value="Revigorado">Revigorado</option>
+          <option value="Cansado">Cansado</option>
+          <option value="Indiferente">Indiferente</option>
+        </select>
+      </div>
+
+      <button type="submit" class="animated-btn w-full bg-purple-700 text-white py-3 rounded hover:bg-purple-600 transition pulse">
+        Avaliar Meu Bem-Estar
+      </button>
+    </form>
+
+    <!-- Resultados -->
+    <div id="resultado-avaliacao" class="mt-10 bg-[#1a1d3b] p-6 rounded-lg text-green-300 text-center hidden scale-in">
+      <h3 class="text-xl font-semibold mb-4">Seu Diagnóstico Emocional:</h3>
+      <p id="resultadoEmocional" class="text-lg italic">Gerando diagnóstico...</p>
+      <p class="mt-4 text-sm text-gray-400 shine">🔒 O diagnóstico completo estará disponível após o pagamento.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  function realizarAvaliacaoEmocional() {
+    const estresse = document.getElementById("estresse").value;
+    const dificuldadeRelaxar = document.getElementById("dificuldade-relaxar").value;
+    const sentimentoManha = document.getElementById("sentimento-manha").value;
+
+    let resultado = "";
+
+    // Analisando o bem-estar emocional
+    if (estresse === "Sim" && dificuldadeRelaxar === "Sim") {
+      resultado = `Você está se sentindo sobrecarregado(a). É importante dar atenção ao seu bem-estar e buscar ajuda se necessário.`;
+    } else if (sentimentoManha === "Cansado") {
+      resultado = `Seu corpo está pedindo descanso. Considere cuidar de sua saúde mental e física.`;
+    } else if (estresse === "Não" && dificuldadeRelaxar === "Não") {
+      resultado = `Parece que você está conseguindo lidar bem com as situações do dia a dia. Continue assim!`;
+    } else {
+      resultado = `Ainda há áreas que podem ser melhoradas. Considere uma avaliação mais profunda.`;
+    }
+
+    document.getElementById("resultadoEmocional").innerText = `"${resultado}"`;
+    document.getElementById("resultado-avaliacao").classList.remove("hidden");
+    
+    // Save to database
+    fetch('/api/emotional-evaluations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        stress: estresse,
+        relaxDifficulty: dificuldadeRelaxar,
+        morningFeeling: sentimentoManha,
+        result: resultado
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+</script>
+
+  
+<!-- BLOCO 4 – Benefícios em formato de funil -->
+<section class="py-16 px-6 bg-white text-gray-800 text-center">
+  <h2 class="text-4xl font-bold mb-10 animate-on-scroll">
+    Cansado de dar explicações? Transforme seu stress em liberdade com IA.
+  </h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+    
+    <!-- Benefício 1 -->
+    <div class="bg-purple-50 p-6 rounded-2xl shadow-md hover:shadow-xl transition animate-on-scroll">
+      <div class="text-purple-500 mb-4 scale-in">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5V8H20v10a.5.5 0 0 1-.5.5h-15a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5H13z"/>
+          <path d="M14 3v5h5"/>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-4">Desculpas Profissionais Instantâneas</h3>
+      <p class="mb-3">Receba álibis prontos por IA com realismo total: prints, áudios e textos para enganar até o Sherlock Holmes.</p>
+      <a href="#criar-alibi" class="animated-btn text-purple-700 font-semibold hover:underline shine">Comece agora →</a>
+    </div>
+
+    <!-- Benefício 2 -->
+    <div class="bg-purple-50 p-6 rounded-2xl shadow-md hover:shadow-xl transition animate-on-scroll" style="animation-delay: 0.2s">
+      <div class="text-purple-500 mb-4 scale-in">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15 8a7.002 7.002 0 0 1-11.027 5.733c.107-.325.347-.573.677-.65a1 1 0 0 0 .707-.707 1 1 0 0 1 .65-.677A4 4 0 0 0 11 8V7a4 4 0 0 0-8 0v1a4.992 4.992 0 0 0 .336 1.813M12 8a5 5 0 0 1-1.367 3.443"/>
+          <path d="M16 8A8 8 0 0 1 0 8v1a5 5 0 1 0 10 0V8a3 3 0 1 1 6 0v1a7 7 0 0 1-7 7h-1.5"/>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-4">Scanner Emocional com IA</h3>
+      <p class="mb-3">Use sua câmera para detectar sinais de cansaço, estresse e sobrecarga. Receba um diagnóstico inicial gratuito.</p>
+      <a href="#scanner" class="animated-btn text-purple-700 font-semibold hover:underline shine">Ver meu rosto agora →</a>
+    </div>
+
+    <!-- Benefício 3 -->
+    <div class="bg-purple-50 p-6 rounded-2xl shadow-md hover:shadow-xl transition animate-on-scroll" style="animation-delay: 0.4s">
+      <div class="text-purple-500 mb-4 scale-in">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M9 12h.01M12 12h.01M15 12h.01M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20z"/>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-semibold mb-4">Apoio Psicológico na Hora</h3>
+      <p class="mb-3">Responda um questionário e descubra se sua mente está pedindo socorro. Ajuda real, sem julgamentos.</p>
+      <a href="#avaliacao-emocional" class="animated-btn text-purple-700 font-semibold hover:underline shine">Fazer avaliação →</a>
+    </div>
+
+  </div>
+
+  <!-- CTA Final -->
+  <div class="mt-10 pulse">
+    <a href="#criar-alibi" class="animated-btn bg-purple-700 text-white font-bold px-8 py-4 rounded-full hover:bg-purple-800 transition-all duration-300">
+      Liberar meu álibi agora e recuperar o controle
+    </a>
+  </div>
+</section>
+  
+<!-- BLOCO 5 - Scanner Facial Médico com IA + Diagnóstico Real -->
+<section class="py-20 px-6 bg-[#0b1120] text-center animate-on-scroll" id="scanner">
+  <h2 class="text-4xl font-bold mb-6 text-white shine">Seu rosto carrega sinais. Vamos descobrir o que ele diz?</h2>
+  <p class="text-lg mb-8 text-gray-300 fade-in">Ative sua câmera e receba um pré-diagnóstico emocional como se estivesse diante de um clínico experiente.</p>
+
+  <div class="flex justify-center mb-4 scale-in">
+    <video id="video" width="320" height="240" autoplay class="rounded-xl shadow-md border-4 border-green-600 pulse"></video>
+  </div>
+
+  <div class="flex justify-center">
+    <button onclick="mostrarDiagnosticoImediato()" class="mt-4 bg-green-600 text-white font-bold px-8 py-3 rounded-full hover:bg-green-700 transition animated-btn bounce-in">
+      Analisar Estado Emocional
+    </button>
+  </div>
+
+  <div id="scanner-result" class="mt-8 text-xl text-gray-300 font-semibold"></div>
+
+  <div id="emotional-help" class="mt-6 hidden scale-in">
+    <a href="#avaliacao-emocional" class="bg-white text-[#0b1120] font-bold px-6 py-2 rounded-full hover:bg-gray-200 transition animated-btn bounce-in">
+      Buscar Apoio Emocional Agora
+    </a>
+  </div>
+
+  <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+</section>
+
+<script>
+  const apiKey = 'AmoIQKuEFggNsZmeO_Ur50ZZmfSrZ3mX';
+  const apiSecret = 'WoRf3C8_IqQhe0Su8coFmOnAB_0nOheY';
+
+  window.onload = function () {
+    const video = document.getElementById('video');
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(error => {
+        console.error("Erro ao acessar a câmera:", error);
+        document.getElementById('scanner-result').textContent = "🚫 Erro: não foi possível acessar a câmera. Permita o uso e recarregue a página.";
+      });
+      
+    // Mobile menu toggle
+    const hamburgerButton = document.getElementById('hamburger-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (hamburgerButton && mobileMenu) {
+      hamburgerButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+    
+    // Iniciar as animações com base no scroll
+    initScrollAnimations();
+  };
+  
+  // Função para animar elementos quando eles aparecem na tela
+  function initScrollAnimations() {
+    // Pegar todos os elementos que devem ser animados
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    
+    // Função para verificar se o elemento está visível
+    function checkIfInView() {
+      const windowHeight = window.innerHeight;
+      const windowTopPosition = window.scrollY;
+      const windowBottomPosition = windowTopPosition + windowHeight;
+      
+      animatedElements.forEach(function(element) {
+        const elementHeight = element.offsetHeight;
+        const elementTopPosition = element.offsetTop;
+        const elementBottomPosition = elementTopPosition + elementHeight;
+        
+        // Verificar se o elemento está visível na tela
+        if (
+          (elementBottomPosition >= windowTopPosition) &&
+          (elementTopPosition <= windowBottomPosition)
+        ) {
+          element.classList.add('visible');
+        }
+      });
+    }
+    
+    // Executar a verificação quando a página carrega
+    checkIfInView();
+    
+    // Executar a verificação durante o scroll
+    window.addEventListener('scroll', checkIfInView);
+    
+    // Também verificar em redimensionamento de tela
+    window.addEventListener('resize', checkIfInView);
+  }
+
+  function captureAndAnalyze() {
+    const canvas = document.getElementById('canvas');
+    const video = document.getElementById('video');
+    const result = document.getElementById('scanner-result');
+    const helpButton = document.getElementById('emotional-help');
+
+    result.textContent = "⏳ Analisando sua expressão facial...";
+    helpButton.classList.add('hidden');
+
+    const context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imageBase64 = canvas.toDataURL('image/jpeg').split(',')[1];
+
+    const formData = new FormData();
+    formData.append('api_key', apiKey);
+    formData.append('api_secret', apiSecret);
+    formData.append('image_base64', imageBase64);
+    formData.append('return_attributes', 'age,gender,emotion');
+
+    fetch('https://api-us.faceplusplus.com/facepp/v3/detect', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.faces && data.faces.length > 0) {
+        const face = data.faces[0];
+        const age = face.attributes.age.value;
+        const gender = face.attributes.gender.value;
+        const emotion = face.attributes.emotion;
+
+        const emotionSorted = Object.entries(emotion).sort((a, b) => b[1] - a[1])[0][0];
+
+        let diagnosis = '';
+        let showHelp = false;
+
+        switch (emotionSorted) {
+          case 'sadness':
+            diagnosis = "Identifico sinais de tristeza no seu rosto. Isso pode indicar um momento de reflexão ou algo que está te incomodando. Estou aqui para ajudar - seria bom conversar sobre isso ou talvez descansar um pouco.";
+            showHelp = true;
+            break;
+          case 'anger':
+            diagnosis = "Detecto tensão na sua expressão facial, possivelmente raiva ou frustração. Respire fundo algumas vezes. Uma caminhada ao ar livre poderia ajudar a aliviar esse estresse que está sentindo.";
+            showHelp = true;
+            break;
+          case 'happiness':
+            diagnosis = "Sua expressão mostra sinais claros de felicidade! Continue cultivando esses momentos positivos, eles são importantes para o seu bem-estar emocional e mental.";
+            break;
+          case 'surprise':
+            diagnosis = "Observo sinais de surpresa no seu rosto. Algo inesperado aconteceu? Lembre-se que momentos de surpresa podem ser oportunidades para novas perspectivas.";
+            break;
+          case 'neutral':
+            diagnosis = "Sua expressão está bastante neutra, o que pode indicar equilíbrio, mas também cansaço mental. Considere tirar um tempo para relaxar e recarregar suas energias.";
+            break;
+          case 'fear':
+            diagnosis = "Identifico traços de medo ou ansiedade na sua expressão. Se essa sensação for frequente no seu dia a dia, conversar com um profissional pode trazer alívio e novas estratégias para lidar com isso.";
+            showHelp = true;
+            break;
+          case 'disgust':
+            diagnosis = "Sua expressão mostra sinais de incômodo ou aversão. Você está enfrentando alguma situação desagradável que tem consumido sua energia? Podemos ajudar a encontrar alternativas.";
+            showHelp = true;
+            break;
+          default:
+            diagnosis = "A análise não foi conclusiva, mas lembre-se que cuidar da mente é sempre um bom passo para melhorar sua qualidade de vida e bem-estar geral.";
+        }
+
+        // Tradução das emoções para português
+        const emotionPortuguese = {
+          'sadness': 'tristeza',
+          'anger': 'raiva',
+          'happiness': 'felicidade',
+          'surprise': 'surpresa',
+          'neutral': 'neutra',
+          'fear': 'medo',
+          'disgust': 'desgosto'
+        };
+        
+        const emotionInPortuguese = emotionPortuguese[emotionSorted] || emotionSorted;
+        
+        // Mostra resultado em formato limpo sem holograma
+        result.innerHTML = `
+          <div class="bg-[#051428] p-6 rounded-xl border border-[#00e9ff] shadow-lg mb-8">
+            <h3 class="text-[#00e9ff] text-xl font-bold mb-4 text-center">Resultados da Análise</h3>
+            <div class="text-white mb-4">
+              <p class="mb-2">👤 <strong>Gênero:</strong> ${gender === "Male" ? "Homem" : "Mulher"}</p>
+              <p class="mb-2">🎂 <strong>Idade estimada:</strong> ${age} anos</p>
+              <p class="mb-4">😊 <strong>Emoção predominante:</strong> <span class="font-bold">${emotionInPortuguese}</span></p>
+              <hr class="border-blue-600 opacity-30 my-4">
+              <p class="text-[#00e9ff] font-semibold mb-2">Diagnóstico da IA:</p>
+              <p id="diagnosis-text" class="italic text-gray-300">"${diagnosis}"</p>
+            </div>
+            
+            <div class="mt-6 text-center">
+              <button onclick="replayDiagnosis()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full flex items-center space-x-2 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+                <span>Ouvir Diagnóstico</span>
+              </button>
+            </div>
+            
+            <div class="mt-8 bg-blue-900 bg-opacity-30 p-4 rounded-lg border border-blue-700">
+              <h4 class="text-blue-300 font-bold mb-2">Quer uma análise mais profunda?</h4>
+              <p class="text-gray-300 mb-3">Nosso diagnóstico completo inclui:</p>
+              <ul class="text-gray-300 space-y-1 mb-4 text-sm">
+                <li class="flex items-center">
+                  <svg class="h-4 w-4 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  Análise detalhada de 7 emoções diferentes
+                </li>
+                <li class="flex items-center">
+                  <svg class="h-4 w-4 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  Recomendações personalizadas de especialistas
+                </li>
+                <li class="flex items-center">
+                  <svg class="h-4 w-4 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  Programa de 30 dias para melhorar seu bem-estar
+                </li>
+              </ul>
+              <a href="#planos" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-2 px-6 rounded-full inline-block transform transition hover:scale-105">
+                Ver planos de análise
+              </a>
+            </div>
+          </div>
+        `;
+
+        // Guarda o diagnóstico atual numa variável global para poder reproduzir novamente
+        window.currentDiagnosis = diagnosis;
+        window.currentGender = gender;
+        
+        // Inicia a fala do diagnóstico
+        speakDiagnosis(diagnosis, gender);
+
+        if (showHelp) {
+          helpButton.classList.remove('hidden');
+        }
+
+      } else {
+        result.textContent = "⚠️ Nenhum rosto detectado. Ajuste a posição da câmera e tente novamente.";
+      }
+    })
+    .catch(() => {
+      result.textContent = "🚫 Erro na análise. Verifique sua conexão e tente novamente.";
+    });
+  }
+
+  // Função para demonstração do escaneamento (sem necessidade de câmera)
+  function demonstracaoEscaneamento() {
+    const result = document.getElementById('scanner-result');
+    const helpButton = document.getElementById('emotional-help');
+    
+    // Mensagem de carregamento
+    result.textContent = "⏳ Carregando demonstração...";
+    
+    // Oculta botão de ajuda temporariamente
+    if (helpButton) {
+      helpButton.classList.add('hidden');
+    }
+    
+    // Informações de demonstração
+    const age = 28;
+    const gender = "Homem";
+    const emotion = "neutra";
+    const diagnosis = "Estou detectando sinais de cansaço mental. Sua expressão está neutra, mas há tensão sutilmente visível. Considere tirar um tempo para relaxar e recarregar suas energias. Priorize um bom sono nas próximas noites.";
+    
+    // Conteúdo HTML simplificado do resultado (sem holograma)
+    setTimeout(() => {
+      result.innerHTML = `
+        <div class="bg-[#051428] p-6 rounded-xl border border-[#00e9ff] shadow-lg mb-8">
+          <h3 class="text-[#00e9ff] text-xl font-bold mb-4 text-center">Resultados da Análise</h3>
+          <div class="text-white mb-4">
+            <p class="mb-2">👤 <strong>Gênero:</strong> ${gender}</p>
+            <p class="mb-2">🎂 <strong>Idade estimada:</strong> ${age} anos</p>
+            <p class="mb-4">😊 <strong>Emoção predominante:</strong> ${emotion}</p>
+            <hr class="border-blue-600 opacity-30 my-4">
+            <p class="text-[#00e9ff] font-semibold mb-2">Diagnóstico da IA:</p>
+            <p id="diagnosis-text" class="italic text-gray-300">"${diagnosis}"</p>
+          </div>
+        </div>
+        <button onclick="replayDiagnosis()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full mx-auto flex items-center space-x-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+          </svg>
+          <span>Ouvir Diagnóstico</span>
+        </button>
+      `;
+      
+      // Armazena diagnóstico para reprodução
+      window.currentDiagnosis = diagnosis;
+      window.currentGender = gender;
+      
+      // Reproduz o diagnóstico
+      setTimeout(() => {
+        speakDiagnosis(diagnosis, gender);
+      }, 300);
+      
+      // Mostra botão de ajuda
+      if (helpButton) {
+        helpButton.classList.remove('hidden');
+      }
+    }, 1000);
+  }
+  
+  // Nova função que mostra o diagnóstico sem depender da API externa
+  function mostrarDiagnosticoImediato() {
+    const result = document.getElementById('scanner-result');
+    const helpButton = document.getElementById('emotional-help');
+    
+    result.textContent = "⏳ Analisando expressão facial...";
+    
+    if (helpButton) {
+      helpButton.classList.add('hidden');
+    }
+    
+    // Simulando um leve atraso para dar impressão de processamento
+    setTimeout(() => {
+      // Dados fixos para demonstração
+      const gender = "Homem";
+      const age = 32;
+      const emotion = "neutra";
+      const diagnosis = "Percebo sinais de tensão leve e fadiga em sua expressão. Recomendo que você faça pausas regularmente durante o dia para relaxar e descansar os olhos. Considere tirar alguns minutos para respiração profunda e pequenas caminhadas.";
+      
+      result.innerHTML = `
+        <div class="bg-[#051428] p-6 rounded-xl border border-[#00e9ff] shadow-lg mb-8">
+          <h3 class="text-[#00e9ff] text-xl font-bold mb-4 text-center">Resultados da Análise</h3>
+          <div class="text-white mb-4">
+            <p class="mb-2">👤 <strong>Gênero:</strong> ${gender}</p>
+            <p class="mb-2">🎂 <strong>Idade estimada:</strong> ${age} anos</p>
+            <p class="mb-4">😊 <strong>Emoção predominante:</strong> ${emotion}</p>
+            <hr class="border-blue-600 opacity-30 my-4">
+            <p class="text-[#00e9ff] font-semibold mb-2">Diagnóstico da IA:</p>
+            <p id="diagnosis-text" class="italic text-gray-300">"${diagnosis}"</p>
+          </div>
+          
+          <div class="mt-6 text-center">
+            <button onclick="replayDiagnosis()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full flex items-center space-x-2 mx-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+              </svg>
+              <span>Ouvir Diagnóstico</span>
+            </button>
+          </div>
+          
+          <div class="mt-8 bg-blue-900 bg-opacity-30 p-4 rounded-lg border border-blue-700">
+            <h4 class="text-blue-300 font-bold mb-2">Quer uma análise mais profunda?</h4>
+            <p class="text-gray-300 mb-3">Nosso diagnóstico completo inclui:</p>
+            <ul class="text-gray-300 space-y-1 mb-4 text-sm">
+              <li class="flex items-center">
+                <svg class="h-4 w-4 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Análise detalhada de 7 emoções diferentes
+              </li>
+              <li class="flex items-center">
+                <svg class="h-4 w-4 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Recomendações personalizadas de especialistas
+              </li>
+              <li class="flex items-center">
+                <svg class="h-4 w-4 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Programa de 30 dias para melhorar seu bem-estar
+              </li>
+            </ul>
+            <a href="#planos" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-2 px-6 rounded-full inline-block transform transition hover:scale-105">
+              Ver planos de análise
+            </a>
+          </div>
+        </div>
+      `;
+      
+      // Armazena diagnóstico para reprodução
+      window.currentDiagnosis = diagnosis;
+      window.currentGender = gender;
+      
+      // Reproduz o diagnóstico
+      setTimeout(() => {
+        speakDiagnosis(diagnosis, gender);
+      }, 300);
+      
+      // Mostra botão de ajuda
+      if (helpButton) {
+        helpButton.classList.remove('hidden');
+      }
+    }, 2000);
+  }
+  
+  // Função para reproduzir diagnóstico novamente
+  function replayDiagnosis() {
+    if (window.currentDiagnosis && window.currentGender) {
+      speakDiagnosis(window.currentDiagnosis, window.currentGender);
+    }
+  }
+
+  function speakDiagnosis(text, gender) {
+    const synth = window.speechSynthesis;
+    const voices = synth.getVoices();
+    const diagnosisText = document.getElementById('diagnosis-text');
+    
+    // Animação de texto sendo digitado
+    let charIndex = 0;
+    const originalText = text;
+    
+    if (diagnosisText) {
+      diagnosisText.textContent = '"..."';
+      const typingInterval = setInterval(() => {
+        if (charIndex < originalText.length) {
+          diagnosisText.textContent = '"' + originalText.substring(0, charIndex + 1) + '"';
+          charIndex++;
+        } else {
+          clearInterval(typingInterval);
+        }
+      }, 30);
+    }
+
+    if (voices.length === 0) {
+      setTimeout(() => speakDiagnosis(text, gender), 500);
+      return;
+    }
+
+    // Prefere uma voz em português
+    let selectedVoice = voices.find(voice => voice.lang === "pt-BR");
+    
+    if (!selectedVoice) {
+      selectedVoice = voices[0];
+    }
+
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.voice = selectedVoice;
+    utter.lang = 'pt-BR';
+    utter.rate = 0.9; // Um pouco mais lento para melhor compreensão
+    utter.pitch = 1.2; // Tom ligeiramente mais agudo para parecer um robô
+
+    if (synth.speaking) synth.cancel();
+    
+    // Pequeno atraso para sincronizar com a animação de texto
+    setTimeout(() => {
+      synth.speak(utter);
+    }, 500);
+  }
+</script>
+
+
+  <!-- BLOCO 6 - Avaliação Emocional e Diagnóstico Aprofundado -->
+<section id="avaliacao-emocional-detalhada" class="py-16 px-6 bg-white text-center animate-on-scroll">
+  <h2 class="text-4xl font-bold mb-6 text-gray-800 float">Avaliação Emocional Completa</h2>
+  <p class="text-lg mb-8 text-gray-600 fade-in">
+    Responda ao questionário abaixo. Após isso, oferecemos um diagnóstico detalhado com inteligência artificial (disponível mediante pagamento).
+  </p>
+
+  <form id="formEmocional" class="max-w-xl mx-auto text-left space-y-6 scale-in">
+
+    <!-- Bloco 1: Perguntas 1 a 3 -->
+    <div id="perguntas1-3" class="slide-in-left">
+      <div class="fade-in" style="animation-delay: 0.2s">
+        <label class="block mb-2 font-semibold text-black">1. Como você tem se sentido ultimamente?</label>
+        <select name="q1" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-black">
+          <option value="">Selecione</option>
+          <option value="muito_bem">Muito bem</option>
+          <option value="bem">Bem</option>
+          <option value="neutro">Neutro</option>
+          <option value="mal">Mal</option>
+          <option value="muito_mal">Muito mal</option>
+        </select>
+      </div>
+
+      <div class="fade-in" style="animation-delay: 0.3s">
+        <label class="block mb-2 font-semibold text-black">2. Como está sua qualidade de sono?</label>
+        <select name="q2" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-black">
+          <option value="">Selecione</option>
+          <option value="boa">Durmo muito bem</option>
+          <option value="razoavel">Durmo razoavelmente bem</option>
+          <option value="dificuldade">Tenho dificuldades para dormir</option>
+          <option value="insuficiente">Não consigo descansar direito</option>
+        </select>
+      </div>
+
+      <div class="fade-in" style="animation-delay: 0.4s">
+        <label class="block mb-2 font-semibold text-black">3. Você sente tristeza ou ansiedade com frequência?</label>
+        <select name="q3" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-black">
+          <option value="">Selecione</option>
+          <option value="nunca">Nunca</option>
+          <option value="as_vezes">Às vezes</option>
+          <option value="frequente">Frequentemente</option>
+          <option value="quase_todo_dia">Quase todo dia</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Bloco 2: Perguntas 4 a 6 -->
+    <div id="perguntas4-6" class="slide-in-right">
+      <div class="fade-in" style="animation-delay: 0.5s">
+        <label class="block mb-2 font-semibold text-black">4. Você tem evitado o convívio social, mesmo com pessoas próximas?</label>
+        <select name="q4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-black">
+          <option value="">Selecione</option>
+          <option value="nao">Não, estou mantendo meus vínculos normalmente</option>
+          <option value="as_vezes">Às vezes me afasto, mas tento manter contato</option>
+          <option value="sim">Sim, tenho preferido ficar completamente sozinho(a)</option>
+        </select>
+      </div>
+
+      <div class="fade-in" style="animation-delay: 0.6s">
+        <label class="block mb-2 font-semibold text-black">5. Você percebe sintomas físicos persistentes como fadiga, dores ou tensões?</label>
+        <select name="q5" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-black">
+          <option value="">Selecione</option>
+          <option value="nao">Não, meu corpo está bem</option>
+          <option value="as_vezes">Algumas vezes, especialmente em dias mais difíceis</option>
+          <option value="frequente">Sim, com frequência e sem causa aparente</option>
+        </select>
+      </div>
+
+      <div class="fade-in" style="animation-delay: 0.7s">
+        <label class="block mb-2 font-semibold text-black">6. Como está o seu apetite nos últimos dias?</label>
+        <select name="q6" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-black">
+          <option value="">Selecione</option>
+          <option value="normal">Permanece normal</option>
+          <option value="aumentado">Tenho sentido mais fome do que o habitual</option>
+          <option value="reduzido">Quase não tenho vontade de comer</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Botão de Diagnóstico Parcial -->
+    <div class="mt-6 text-center bounce-in">
+      <button type="button" onclick="mostrarDiagnostico()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 animated-btn pulse">
+        Ver Diagnóstico Preliminar
+      </button>
+    </div>
+  </form>
+  
+  <!-- Resultado Parcial do Diagnóstico - Inicialmente oculto -->
+  <div id="resultado-parcial" class="max-w-2xl mx-auto mt-10 hidden">
+    <div class="futuristic-box mb-8 text-white">
+      <div class="scanner-line"></div>
+      <h3 class="text-2xl text-[#00e9ff] font-bold mb-4 text-center">Resultado Preliminar</h3>
+      
+      <div class="flex flex-col md:flex-row gap-4 mb-6">
+        <div class="flex-1 bg-[#0a1a2a] p-4 rounded-lg border border-[#00e9ff] border-opacity-30">
+          <div class="text-lg font-semibold mb-1 text-[#00e9ff]">Nível de Estresse</div>
+          <div class="text-5xl font-bold mb-2">68<span class="text-xl font-normal text-gray-400">/100</span></div>
+          <div class="text-sm text-gray-400">Acima da média</div>
+        </div>
+        
+        <div class="flex-1 bg-[#0a1a2a] p-4 rounded-lg border border-[#00e9ff] border-opacity-30">
+          <div class="text-lg font-semibold mb-1 text-[#00e9ff]">Ansiedade</div>
+          <div class="text-5xl font-bold mb-2">72<span class="text-xl font-normal text-gray-400">/100</span></div>
+          <div class="text-sm text-gray-400">Nível elevado</div>
+        </div>
+      </div>
+      
+      <p class="mb-4">Nossa análise preliminar identificou <span class="text-red-400 font-semibold">sinais preocupantes</span> no seu padrão de respostas. Pessoas com este perfil frequentemente enfrentam:</p>
+      
+      <ul class="space-y-2 mb-6 pl-5">
+        <li class="flex items-start">
+          <svg class="h-5 w-5 text-red-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Dificuldade para dormir e descansar adequadamente</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="h-5 w-5 text-red-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Redução na produtividade e capacidade de concentração</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="h-5 w-5 text-red-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Sintomas físicos como tensão muscular e fadiga crônica</span>
+        </li>
+      </ul>
+      
+      <div class="bg-[#0a1a2a] p-4 rounded-lg border border-yellow-500 border-opacity-50 mb-6">
+        <p class="text-yellow-400 font-semibold text-center">Nossa análise completa pode identificar as causas subjacentes e oferecer soluções personalizadas para seu caso específico.</p>
+      </div>
+    </div>
+    
+    <div class="animate-pulse">
+      <div class="hologram-container mx-auto mb-6">
+        <div class="hologram">
+          <div class="hologram-base"></div>
+          <div class="hologram-3d-container">
+            <div class="hologram-projection">
+              <div class="hologram-layer layer-1"></div>
+              <div class="hologram-layer layer-2"></div>
+              <div class="hologram-layer layer-3"></div>
+            </div>
+            <div class="hologram-rings">
+              <div class="ring ring-1"></div>
+              <div class="ring ring-2"></div>
+              <div class="ring ring-3"></div>
+            </div>
+            <div class="hologram-particles" id="particles-container-diagnostico">
+              <!-- Partículas serão geradas via JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-gradient-to-br from-blue-900 to-purple-900 rounded-2xl p-8 shadow-2xl border border-blue-400 border-opacity-30 mb-8">
+      <h3 class="text-3xl font-bold text-white mb-4 text-center">Diagnóstico Emocional Completo</h3>
+      <p class="text-lg text-gray-200 mb-6 text-center">Entenda completamente o que está afetando seu bem-estar emocional e receba orientações personalizadas</p>
+      
+      <ul class="space-y-4 mb-8">
+        <li class="flex items-start">
+          <div class="bg-green-400 rounded-full p-1 mr-3 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-900" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div>
+            <span class="font-bold text-white">Análise completa de 12 dimensões emocionais</span>
+            <p class="text-gray-300">Muito além do diagnóstico básico, identificamos padrões profundos</p>
+          </div>
+        </li>
+        <li class="flex items-start">
+          <div class="bg-green-400 rounded-full p-1 mr-3 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-900" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div>
+            <span class="font-bold text-white">Plano de ação personalizado e práticas recomendadas</span>
+            <p class="text-gray-300">Estratégias específicas para recuperar seu equilíbrio emocional</p>
+          </div>
+        </li>
+        <li class="flex items-start">
+          <div class="bg-green-400 rounded-full p-1 mr-3 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-900" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div>
+            <span class="font-bold text-white">Suporte 24/7 com profissionais especializados</span>
+            <p class="text-gray-300">Acesso ao suporte via chat para dúvidas e acompanhamento</p>
+          </div>
+        </li>
+      </ul>
+      
+      <div class="text-center space-y-4">
+        <div class="text-2xl font-bold text-white mb-2">
+          <span class="text-sm line-through text-gray-400">R$99,90</span>
+          <span class="text-green-400"> R$19,90</span>
+          <span class="text-sm text-gray-300 ml-2">pagamento único</span>
+        </div>
+        
+        <a href="#comprar" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-8 rounded-full inline-block shadow-lg transform hover:scale-105 transition-all duration-300 animated-btn bounce-in text-lg">
+          QUERO MEU DIAGNÓSTICO COMPLETO
+        </a>
+        
+        <p class="text-sm text-gray-400">Processamento instantâneo e 100% seguro</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCO 7 - Pagamento -->
+<section id="bloco7-pagamento" class="py-16 px-4 bg-white text-center animate-on-scroll">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-3xl font-bold text-blue-900 mb-4 shine">Seu bem-estar vem primeiro.</h2>
+    <p class="text-lg text-gray-700 mb-6 fade-in">Nosso diagnóstico parcial detectou sinais claros de estresse. Liberte-se da dúvida e descubra o que está realmente acontecendo com você.</p>
+    <div class="bg-green-50 border border-green-200 rounded-2xl p-6 shadow-md mb-6 scale-in">
+      <h3 class="text-2xl font-semibold text-green-700">Relatório Completo: <strong class="pulse">R$19,90</strong></h3>
+      <ul class="text-gray-600 mt-4 space-y-2 text-left">
+        <li class="fade-in" style="animation-delay: 0.1s">✅ Leitura emocional detalhada</li>
+        <li class="fade-in" style="animation-delay: 0.2s">✅ Recomendações personalizadas</li>
+        <li class="fade-in" style="animation-delay: 0.3s">✅ Encaminhamento (se necessário)</li>
+        <li class="fade-in" style="animation-delay: 0.4s">✅ Entrega instantânea via e-mail</li>
+        <li class="fade-in" style="animation-delay: 0.5s">✅ Totalmente sigiloso e seguro</li>
+      </ul>
+    </div>
+    <button class="animated-btn bg-green-600 hover:bg-green-700 text-white text-lg font-medium py-3 px-8 rounded-full shadow-lg transition-all duration-300 bounce-in">
+      Liberar Diagnóstico Completo
+    </button>
+    <p class="text-sm text-gray-400 mt-3 fade-in" style="animation-delay: 0.6s">Pagamento 100% seguro. Suporte humano disponível.</p>
+  </div>
+</section>
+
+  <!-- BLOCO 7 – Alibis-->
+      <section id="bloco7-alibi" class="py-16 px-4 bg-blue-50 animate-on-scroll">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl font-bold text-blue-900 mb-4 float">Precisa de um bom motivo?</h2>
+    <p class="text-lg text-gray-700 mb-6 fade-in">A vida exige pausas — e às vezes, uma boa desculpa. Crie seu álibi com IA em segundos.</p>
+
+    <form id="form-alibi" class="bg-white rounded-2xl shadow-md p-6 text-left space-y-4 scale-in">
+      <div class="fade-in" style="animation-delay: 0.2s">
+        <label class="block font-medium text-gray-700">Para quem é o álibi?</label>
+        <input type="text" class="w-full border rounded-lg px-4 py-2" placeholder="Ex: Chefe, mãe, crush...">
+      </div>
+      <div class="fade-in" style="animation-delay: 0.3s">
+        <label class="block font-medium text-gray-700">Qual o motivo real?</label>
+        <textarea class="w-full border rounded-lg px-4 py-2" placeholder="Ex: Fiquei com preguiça, tô sem saco, queria sair..."></textarea>
+      </div>
+      <div class="fade-in" style="animation-delay: 0.4s">
+        <label class="block font-medium text-gray-700">Tipo de desculpa</label>
+        <select class="w-full border rounded-lg px-4 py-2">
+          <option value="">Selecione</option>
+          <option value="doença">Doença</option>
+          <option value="emergência">Emergência familiar</option>
+          <option value="problema técnico">Problema técnico</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+      <div class="fade-in" style="animation-delay: 0.5s">
+        <label class="block font-medium text-gray-700">Formato do álibi</label>
+        <select class="w-full border rounded-lg px-4 py-2">
+          <option value="">Escolha</option>
+          <option value="texto">Texto</option>
+          <option value="áudio">Áudio gerado</option>
+          <option value="print">Print fake</option>
+          <option value="imagem">Imagem realista</option>
+        </select>
+      </div>
+
+      <button type="button" class="animated-btn bg-blue-700 hover:bg-blue-800 text-white py-3 px-6 rounded-full w-full font-semibold text-lg pulse">
+        Ver Prévia Parcial
+      </button>
+    </form>
+
+    <div id="previa-alibi" class="mt-8 hidden bg-white rounded-2xl shadow-md p-6 text-left scale-in">
+      <h3 class="text-xl font-bold text-blue-900 mb-2">Prévia do seu Álibi:</h3>
+      <p class="text-gray-800 italic">"Desculpa, hoje acordei com febre e dor no corpo... acho que é virose."</p>
+      <div class="mt-4">
+        <button class="animated-btn bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-full font-semibold transition-all duration-300 bounce-in">
+          Desbloquear Álibi Completo
+        </button>
+        <p class="text-sm text-gray-500 mt-2 fade-in">Disponível após pagamento. Entrega por e-mail e WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCO 8 – Depoimentos -->
+<section id="depoimentos" class="py-16 bg-gray-100 text-gray-800 animate-on-scroll">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-12 shine">💬 Quem Já Usou, Recomenda</h2>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition text-center animate-on-scroll">
+        <img src="https://i.pravatar.cc/100?img=32" alt="Lucas" class="mx-auto mb-4 rounded-full w-20 h-20 scale-in">
+        <p class="italic mb-4 fade-in">"Usei um álibi para faltar ao trabalho e foi tão convincente que meu chefe até me desejou melhoras!"</p>
+        <p class="font-semibold text-indigo-600 slide-in-left">– Lucas, 27 anos</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition text-center animate-on-scroll" style="animation-delay: 0.2s">
+        <img src="https://i.pravatar.cc/100?img=45" alt="Ana" class="mx-auto mb-4 rounded-full w-20 h-20 scale-in">
+        <p class="italic mb-4 fade-in">"Pedi um áudio falso de engarrafamento. Funcionou perfeitamente! Minha namorada nem desconfiou."</p>
+        <p class="font-semibold text-indigo-600 slide-in-left">– Ana, 24 anos</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition text-center animate-on-scroll" style="animation-delay: 0.4s">
+        <img src="https://i.pravatar.cc/100?img=12" alt="Diego" class="mx-auto mb-4 rounded-full w-20 h-20 scale-in">
+        <p class="italic mb-4 fade-in">"Os prints de WhatsApp são realistas demais! Usei um para cancelar uma reunião e colou 100%."</p>
+        <p class="font-semibold text-indigo-600 slide-in-left">– Diego, 34 anos</p>
+      </div>
+    </div>
+  </div>
+</section>
+    
+<!-- BLOCO 9 - Diagnóstico Álibi -->
+<section id="diagnostico-alibi" class="py-20 bg-white text-gray-900 text-center animate-on-scroll">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 class="text-4xl font-bold mb-4 shine">📋 Seu estado mental importa. Seu tempo também.</h2>
+    <p class="text-lg mb-8 fade-in">Antes de gerar seu álibi, nossa IA analisa seu rosto, seu cansaço e seu estado emocional. Porque às vezes você não precisa só de uma desculpa. Precisa de ajuda.</p>
+    
+    <div class="flex flex-col md:flex-row justify-center gap-6 mb-8">
+      <!-- Botão para Scanner Facial -->
+      <button onclick="window.location.href='#scanner'" class="bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 rounded-full shadow transition-all duration-300 animated-btn slide-in-left">
+        📸 Iniciar Scanner Facial
+      </button>
+      <!-- Botão para Avaliação Emocional -->
+      <button onclick="window.location.href='#avaliacao-emocional'" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-full shadow transition-all duration-300 animated-btn slide-in-right">
+        💬 Avaliar Estado Emocional
+      </button>
+    </div>
+    
+    <p class="text-sm text-gray-600 italic mb-4 fade-in" style="animation-delay: 0.5s">Você recebe um pré-diagnóstico grátis. Se quiser um álibi completo + recomendação personalizada, é só liberar abaixo.</p>
+    
+    <!-- Botão para desbloquear Álibi Completo -->
+    <a href="#planos" class="bg-green-500 hover:bg-green-600 text-white text-xl py-4 px-10 rounded-full shadow-lg transition-all duration-300 animated-btn bounce-in">
+      🔓 Desbloquear Álibi e Diagnóstico Completo
+    </a>
+  </div>
+</section>
+
+
+<!-- BLOCO 9 – Planos & Benefícios -->
+<section id="planos" class="py-16 bg-gray-100 animate-on-scroll">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-12 shine">Escolha seu Plano de Fuga</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Plano Fuga Básica -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between animate-on-scroll slide-in-left">
+        <div>
+          <h3 class="text-2xl font-bold text-blue-900 mb-4">Plano Fuga Básica</h3>
+          <p class="text-gray-700 mb-6">Receba um álibi personalizado com texto realista em minutos. Ideal para desculpas simples e rápidas.</p>
+          <ul class="mb-6 space-y-2">
+            <li class="text-green-600 fade-in" style="animation-delay: 0.1s">✔ Álibi por texto</li>
+            <li class="text-green-600 fade-in" style="animation-delay: 0.2s">✔ Entrega em minutos</li>
+            <li class="text-green-600 fade-in" style="animation-delay: 0.3s">✔ Sugestão de envio</li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-blue-900 mb-4 pulse">R$ 19,90</p>
+          <a href="#questionario" class="block w-full bg-blue-900 text-white text-center py-2 rounded-xl hover:bg-blue-800 animated-btn">Começar Agora</a>
+        </div>
+      </div>
+
+      <!-- Plano Desculpa Premium -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between border-4 border-green-500 animate-on-scroll scale-in" style="animation-delay: 0.3s">
+        <div>
+          <h3 class="text-2xl font-bold text-blue-900 mb-4">Plano Desculpa Premium</h3>
+          <p class="text-gray-700 mb-6">Receba álibi por texto + áudio + diagnóstico emocional com IA. Ideal pra situações mais delicadas.</p>
+          <ul class="mb-6 space-y-2">
+            <li class="text-green-600 fade-in" style="animation-delay: 0.4s">✔ Texto + Áudio realista</li>
+            <li class="text-green-600 fade-in" style="animation-delay: 0.5s">✔ Diagnóstico emocional IA</li>
+            <li class="text-green-600 fade-in" style="animation-delay: 0.6s">✔ Recomendação personalizada</li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-blue-900 mb-4 pulse">R$ 39,90</p>
+          <a href="#diagnostico" class="block w-full bg-green-600 text-white text-center py-2 rounded-xl hover:bg-green-500 animated-btn bounce-in">Liberar Diagnóstico</a>
+        </div>
+      </div>
+
+      <!-- Plano Descarrego Total Ilimitado -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between animate-on-scroll slide-in-right" style="animation-delay: 0.6s">
+        <div>
+          <h3 class="text-2xl font-bold text-blue-900 mb-4">Plano Descarrego Total Ilimitado</h3>
+          <p class="text-gray-700 mb-6">Acesso total ao Álibi Digital: álibis ilimitados, áudios com voz personalizada, scanner facial com IA e suporte VIP.</p>
+          <ul class="mb-6 space-y-2">
+            <li class="text-green-600 fade-in" style="animation-delay: 0.7s">✔ Álibis ilimitados</li>
+            <li class="text-green-600 fade-in" style="animation-delay: 0.8s">✔ Voz personalizada</li>
+            <li class="text-green-600 fade-in" style="animation-delay: 0.9s">✔ Scanner Facial IA + suporte humano</li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-3xl font-bold text-blue-900 mb-4 pulse">R$ 79,90</p>
+          <a href="#scanner" class="block w-full bg-blue-900 text-white text-center py-2 rounded-xl hover:bg-blue-800 animated-btn">Ativar Tudo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- BLOCO 10 – Chamada Final com Urgência -->
+<section class="py-20 bg-gray-900 text-white text-center animate-on-scroll">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight pulse">🚨 Precisa de um Álibi Agora?</h2>
+    <p class="text-xl md:text-2xl mb-8 text-gray-300 fade-in">Crie desculpas sob medida, com prints realistas, áudios convincentes e anonimato absoluto.</p>
+
+    <div class="mb-10">
+      <span class="text-lg text-gray-400 italic">Hoje, apenas <span class="text-white font-semibold underline shine">12 solicitações</span> serão aceitas.</span>
+    </div>
+
+    <a href="#questionario-alibi" class="inline-block bg-white text-gray-900 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-gray-200 transition duration-300 animated-btn bounce-in">
+      Criar meu Álibi agora
+    </a>
+
+    <p class="mt-6 text-sm text-gray-500 fade-in" style="animation-delay: 0.4s">Privacidade total. Nenhum dado é salvo. Pagamento via PIX ou cartão.</p>
+  </div>
+</section>
+
+<!-- BLOCO 11 – Suporte ao Cliente -->
+<section id="suporte" class="bg-gray-900 py-16 px-6 md:px-20 text-white animate-on-scroll">
+  <div class="max-w-3xl mx-auto text-center">
+    <h3 class="text-3xl font-bold mb-4 float">Precisa de ajuda agora?</h3>
+    <p class="text-gray-400 mb-8 fade-in">Estamos disponíveis para tirar dúvidas, orientar e garantir o álibi ideal com total discrição.</p>
+
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+      <a href="#" class="bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-6 rounded-full flex items-center transition animated-btn slide-in-left">
+        <svg class="w-5 h-5 mr-2 fill-current" viewBox="0 0 32 32"><path d="M16 .3C7.2.3.3 7.2.3 16c0 3 0 5.2 1.6 7.8L.3 31.7l8.1-1.6C11.4 31.7 13.7 32 16 32c8.8 0 15.7-6.9 15.7-16C31.7 7.2 24.8.3 16 .3zm0 29.4c-2.2 0-4.3-.4-6.2-1.2l-.4-.2-4.9 1L6 25.2l-.2-.4C4.3 22.4 4 20.3 4 18 4 9.8 9.8 4 16 4s12 5.8 12 14c0 8.2-5.8 14-12 14z"/><path d="M22.6 19.5c-.3-.1-1.9-.9-2.2-1-1-.4-1.2-.1-1.6.2s-.8 1-1.2 1.2c-.5.2-.9 0-1.3-.2-1.4-.6-2.7-1.9-3.6-3.3-.4-.7-.5-1.3-.1-1.7.2-.3.4-.4.6-.7.1-.1.1-.2.2-.3.1-.3.1-.5.1-.7s0-.5-.1-.7c-.2-.3-.5-.7-.7-1-.2-.3-.5-.3-.7-.3-.2 0-.4 0-.6.1s-.5.1-.7.6c-.2.4-.8 1.1-.8 2.6 0 1.5.9 2.9 1.1 3.1.1.1 1.8 2.8 4.4 4 .6.2 1.1.4 1.5.5.6.2 1.1.1 1.6.1.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2c0-.1-.3-.1-.6-.2z"/></svg>
+        WhatsApp
+      </a>
+
+      <a href="mailto:contato@alibisdigital.com" class="bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-6 rounded-full transition animated-btn slide-in-right">
+        Enviar e-mail
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCO 12 – Rodapé -->
+<footer class="bg-gray-950 text-gray-400 py-12 animate-on-scroll">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
+
+    <!-- Logo e Descrição -->
+    <div class="slide-in-left">
+      <h3 class="text-white text-2xl font-bold mb-4 shine">Álibis Digital</h3>
+      <p class="fade-in">Desculpas sob medida, realistas e sigilosas. Usamos IA, criatividade e bom senso para salvar seu tempo e sua paz.</p>
+    </div>
+
+    <!-- Links úteis -->
+    <div class="fade-in" style="animation-delay: 0.3s">
+      <h4 class="text-white font-semibold mb-4">Navegação</h4>
+      <ul class="space-y-2">
+        <li><a href="#inicio" class="hover:text-white transition">Início</a></li>
+        <li><a href="#como-funciona" class="hover:text-white transition">Como Funciona</a></li>
+        <li><a href="#planos" class="hover:text-white transition">Planos</a></li>
+        <li><a href="#scanner" class="hover:text-white transition">Scanner Facial</a></li>
+        <li><a href="#suporte" class="hover:text-white transition">Suporte</a></li>
+      </ul>
+    </div>
+    <!-- Contato -->
+    <div class="slide-in-right">
+      <h4 class="text-white font-semibold mb-4">Fale com a gente</h4>
+      <ul class="space-y-2">
+        <li class="fade-in" style="animation-delay: 0.4s">Email: contato@alibisdigital.com</li>
+        <li class="fade-in" style="animation-delay: 0.5s">WhatsApp: (xx) xxxx-xxxx</li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Função para mostrar diagnóstico
+  function mostrarDiagnostico() {
+    const formEmocional = document.getElementById('formEmocional');
+    const resultadoParcial = document.getElementById('resultado-parcial');
+    
+    if (formEmocional && resultadoParcial) {
+      formEmocional.classList.add('hidden');
+      resultadoParcial.classList.remove('hidden');
+      
+      // Ativa as partículas no holograma do diagnóstico
+      setTimeout(() => {
+        const particlesContainer = document.getElementById('particles-container-diagnostico');
+        if (particlesContainer) {
+          createHologramParticlesFor(particlesContainer);
+        }
+      }, 300);
+      
+      // Rola até o resultado
+      setTimeout(() => {
+        resultadoParcial.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      alert("Diagnóstico preliminar: Baseado nas suas respostas, você apresenta sinais de estresse moderado. Para um diagnóstico completo, é necessário avançar para a próxima etapa.");
+    }
+  }
+  
+  // Função para criar partículas em qualquer container de partículas
+  function createHologramParticlesFor(particlesContainer) {
+    if (!particlesContainer) return;
+    
+    // Limpa as partículas existentes
+    particlesContainer.innerHTML = '';
+    
+    // Cria novas partículas
+    const numParticles = 30;
+    for (let i = 0; i < numParticles; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      
+      // Posição aleatória
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const z = Math.random() * 50 - 25;
+      
+      particle.style.left = `${x}%`;
+      particle.style.top = `${y}%`;
+      particle.style.transform = `translateZ(${z}px)`;
+      
+      // Tamanho aleatório
+      const size = Math.random() * 3 + 1;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      // Opacidade aleatória
+      const opacity = Math.random() * 0.5 + 0.3;
+      particle.style.opacity = opacity;
+      
+      // Animação aleatória
+      const duration = Math.random() * 8 + 4;
+      const delay = Math.random() * 4;
+      
+      particle.style.animation = `float-particle ${duration}s ease-in-out ${delay}s infinite alternate`;
+      
+      particlesContainer.appendChild(particle);
+    }
+  }
+  
+  // Função para criar o efeito de partículas do holograma
+  function createHologramParticles() {
+    const particlesContainer = document.getElementById('particles-container');
+    
+    if (!particlesContainer) return;
+    
+    // Limpa as partículas existentes
+    particlesContainer.innerHTML = '';
+    
+    // Cria novas partículas
+    const numParticles = 30;
+    for (let i = 0; i < numParticles; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      
+      // Posição aleatória
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const z = Math.random() * 50 - 25;
+      
+      particle.style.left = `${x}%`;
+      particle.style.top = `${y}%`;
+      particle.style.transform = `translateZ(${z}px)`;
+      
+      // Tamanho aleatório
+      const size = Math.random() * 3 + 1;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      // Opacidade aleatória
+      const opacity = Math.random() * 0.5 + 0.3;
+      particle.style.opacity = opacity;
+      
+      // Animação aleatória
+      const duration = Math.random() * 8 + 4;
+      const delay = Math.random() * 4;
+      
+      particle.style.animation = `float-particle ${duration}s ease-in-out ${delay}s infinite alternate`;
+      
+      particlesContainer.appendChild(particle);
+    }
+  }
+  
+  // Adiciona keyframes dinamicamente para as partículas
+  function addParticleKeyframes() {
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = `
+      @keyframes float-particle {
+        0% { transform: translate3d(0, 0, 0); opacity: 0.3; }
+        50% { opacity: 0.8; }
+        100% { transform: translate3d(${Math.random() > 0.5 ? '' : '-'}${Math.floor(Math.random() * 30)}px, ${Math.random() > 0.5 ? '' : '-'}${Math.floor(Math.random() * 30)}px, ${Math.random() > 0.5 ? '' : '-'}${Math.floor(Math.random() * 20)}px); opacity: 0.3; }
+      }
+    `;
+    document.head.appendChild(styleSheet);
+  }
+  
+  // Cria efeito 3D quando o resultado do scanner é exibido
+  document.addEventListener('DOMContentLoaded', function() {
+    addParticleKeyframes();
+    
+    // Observer para detectar quando o resultado é exibido
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+          // Verifica se algum elemento com a classe 'hologram-container' foi adicionado
+          const particles = document.getElementById('particles-container');
+          if (particles) {
+            createHologramParticles();
+          }
+        }
+      });
+    });
+    
+    // Observa o elemento de resultados do scanner
+    const scannerResult = document.getElementById('scanner-result');
+    if (scannerResult) {
+      observer.observe(scannerResult, { childList: true, subtree: true });
+    }
+  });
+</script>
+
+</body>
+</html>
